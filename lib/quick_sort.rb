@@ -20,12 +20,11 @@ class QuickSort
 
   # In-place
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    return array if array.length < 2
-    pivot_idx = rand(array.length)
-    pivot_el = array[pivot_idx]
-
-    # no new arrays
-
+    return array if length < 2
+    pivot_idx = self.partition(array, start, length, &prc)
+    sort2!(array, start, pivot_idx - start, &prc)
+    sort2!(array, pivot_idx + 1, length - (pivot_idx - start + 1), &prc)
+    array
   end
 
   def self.partition(array, start, length, &prc)
