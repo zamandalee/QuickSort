@@ -4,7 +4,17 @@ class QuickSort
 
   # Not in-place. Uses O(n) memory.
   def self.sort1(array)
+    return array if array.length < 2
+    pivot_idx = rand(array.length)
+    pivot_el = array[pivot_idx]
 
+    left, right = [], []
+    array.each_with_index do |el, idx|
+      next if idx == pivot_idx
+      el > pivot_el ? right << el : left << el
+    end
+
+    self.sort1(left) + [pivot_el] + self.sort1(right)
   end
 
   # In-place.
